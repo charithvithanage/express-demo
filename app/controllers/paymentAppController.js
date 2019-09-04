@@ -14,7 +14,7 @@ exports.getPaymentsByMemberId = function(req, res) {
         if (err)
             res.send(err);
         console.log('res', result);
-        res.json(new Response(true, result));
+        res.send(result);
     })
 };
 

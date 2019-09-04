@@ -41,7 +41,7 @@ HealthCondition.createHealthCondition = function(newHealthCondition, result) {
 };
 
 HealthCondition.updateById = function(healthcondition, id, result) {
-    sql.query("UPDATE table_health_condition SET ? WHERE id = ?", [healthcondition, id], function(err, res) {
+    sql.query("UPDATE table_health_condition SET ? WHERE health_condition_id = ?", [healthcondition, id], function(err, res) {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -67,7 +67,7 @@ HealthCondition.getAllHealthConditions = function(result) {
 };
 
 HealthCondition.getHealthConditionById = function(id, result) {
-    sql.query("Select * from table_health_condition WHERE member_id = ?", [id], function(err, res) {
+    sql.query("Select * from table_health_condition WHERE health_condition_id = ?", [id], function(err, res) {
 
         if (err) {
             console.log("error: ", err);
@@ -79,14 +79,14 @@ HealthCondition.getHealthConditionById = function(id, result) {
     });
 };
 
-HealthCondition.update_haelth_conditions = function(healthconditions, size, result) {
+HealthCondition.update_health_conditions = function(healthconditions, size, result) {
 
     var i = 0;
 
     healthconditions.forEach(element => {
 
 
-        sql.query("UPDATE table_health_condition SET ? WHERE id = ?", [element, element.id], function(err, res) {
+        sql.query("UPDATE table_health_condition SET ? WHERE health_condition_id = ?", [element, element.health_condition_id], function(err, res) {
 
             i++;
 

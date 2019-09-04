@@ -45,7 +45,7 @@ Payment.getPaymentsByMemberId = function (id, result) {
 };
 
 Payment.getPaymentsById = function (id, result) {
-    sql.query("Select * from table_payment WHERE id = ?", [id], function (err, res) {
+    sql.query("Select * from table_payment WHERE payment_id = ?", [id], function (err, res) {
 
         if (err) {
             console.log("error: ", err);
@@ -80,7 +80,7 @@ Payment.update_payments = function (payments, size, result) {
     payments.forEach(element => {
 
 
-        sql.query("UPDATE table_payment SET ? WHERE id = ? AND member_id = ?", [element, element.id, element.member_id], function (err, res) {
+        sql.query("UPDATE table_payment SET ? WHERE payment_id = ? AND member_id = ?", [element, element.payment_id, element.member_id], function (err, res) {
 
             i++;
 

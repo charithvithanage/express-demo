@@ -25,8 +25,8 @@ exports.create_health_condition = function(req, res) {
     });
 };
 
-exports.getHealthConditionByMemberId = function(req, res) {
-    HealthCondition.getHealthConditionById(req.params.member_id, function(err, result) {
+exports.getHealthConditionById = function(req, res) {
+    HealthCondition.getHealthConditionById(req.params.health_condition_id, function(err, result) {
         console.log('Get health conditions by member id')
         if (err)
             res.send(err);
@@ -57,7 +57,7 @@ exports.update_healthcondition = function(req, res) {
 
 exports.update_healthconditions = function(req, res) {
 
-    HealthCondition.update_haelth_conditions(req.body, req.params.size, function(err, result) {
+    HealthCondition.update_health_conditions(req.body, req.params.size, function(err, result) {
         if (err)
             res.send(err);
         res.json([new Response(true, result)]);

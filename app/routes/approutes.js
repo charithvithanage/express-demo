@@ -55,7 +55,7 @@ module.exports = function(app) {
         .get(paymentAppController.getPaymentsById);
 
 
-    app.route('/payments/getpaymentbymemberid/:member_id')
+    app.route('/payments/getpaymentsbymemberid/:member_id')
         .get(paymentAppController.getPaymentsByMemberId);
 
     app.route('/payments/getallpayments')
@@ -71,13 +71,13 @@ module.exports = function(app) {
     app.route('/healthconditions/savehealthcondition')
         .post(healthConditionAppController.create_health_condition);
 
-    app.route('/healthconditions/getyhealthconditionbymemberid/:member_id')
-        .get(healthConditionAppController.getHealthConditionByMemberId);
+    app.route('/healthconditions/getyhealthconditionbyid/:health_condition_id')
+        .get(healthConditionAppController.getHealthConditionById);
 
     app.route('/healthconditions/get_all_healthconditions')
         .get(healthConditionAppController.list_all_healthconditions);
 
-    app.route('/healthconditions/updatehealthcondition/:id')
+    app.route('/healthconditions/updatehealthcondition/:health_condition_id')
         .put(healthConditionAppController.update_healthcondition);
 
     app.route('/healthconditions/updatehealthconditions/:size')
