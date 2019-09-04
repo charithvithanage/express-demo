@@ -6,7 +6,6 @@ var Member = function (member) {
     this.member_id = member.member_id;
     this.member_membership_no = member.member_membership_no;
     this.member_receipt_no = member.member_receipt_no;
-    this.member_address_id = member.member_address_id;
     this.member_first_name = member.member_first_name;
     this.guardian_name = member.guardian_name;
     this.guardian_tel = member.guardian_tel;
@@ -32,25 +31,11 @@ var Member = function (member) {
     this.last_payment_date = member.last_payment_date;
     this.membership_type = member.membership_type;
     this.member_active_status = member.member_active_status;
-    this.diabetes = member.diabetes;
-    this.cholesterol = member.cholesterol;
-    this.high_blood_pressure = member.high_blood_pressure;
-    this.low_blood_pressure = member.low_blood_pressure;
-    this.heart_problem = member.heart_problem;
-    this.chest_pain = member.chest_pain;
-    this.heart_attack = member.heart_attack;
-    this.asthma = member.asthma;
-    this.fainting_spells = member.fainting_spells;
-    this.back_pain = member.back_pain;
-    this.medication = member.medication;
-    this.other_illness = member.other_illness;
-    this.swollen = member.swollen;
-    this.arthritis = member.arthritis;
-    this.hernia = member.hernia;
     this.email = member.email;
     this.created_at = member.created_at;
     this.modified_at = member.modified_at;
-
+    this.address_id = member.address_id;
+    this.health_condition_id = this.health_condition_id;
 }
 
 Member.createMember = function (newMember, result) {
@@ -129,39 +114,68 @@ Member.getMemberById = function (id, result) {
     });
 };
 
-Member.update_members = function (members,size,result) {
+Member.update_members = function (members, size, result) {
 
-    let resultMembers = members.map(({selected, ...rest}) => rest);
+    let resultMembers = members.map(({ selected, ...rest }) => rest);
 
-    var i=0;
+    var i = 0;
 
     resultMembers.forEach(element => {
 
 
-        sql.query("UPDATE table_members SET ? WHERE member_id = ?", [element,element.member_id], function (err, res) {
-            
+        sql.query("UPDATE table_members SET ? WHERE member_id = ?", [element, element.member_id], function (err, res) {
+
             i++;
 
             if (err) {
                 console.log("error: ", err);
-    
+
             }
             else {
 
                 console.log("updated: ", res);
-                console.log("Lenght ",i)
-                console.log("Members size ",members)
 
-
-                if(i==size){
+                if (i == size) {
                     result(null, res);
                 }
-    
+
             }
         });
     });
 
-    
+
+};
+
+Member.save_members = function (members, size, result) {
+
+    let resultMembers = members.map(({ selected, ...rest }) => rest);
+
+    var i = 0;
+
+    resultMembers.forEach(element => {
+
+
+        sql.query("INSERT INTO table_members set ?", [element], function (err, res) {
+
+            i++;
+
+            if (err) {
+                console.log("error: ", err);
+
+            }
+            else {
+
+                console.log("created: ", res);
+
+                if (i == size) {
+                    result(null, res);
+                }
+
+            }
+        });
+    });
+
+
 };
 
 

@@ -1,16 +1,18 @@
 'use strict';
 var sql = require('./db.js');
-var Q = require( "q" );
+var Q = require("q");
 
 //Payment object constructor
 var Payment = function (payment) {
 
-    this.id = payment.id;
-    this.amount = payment.amount;
-    this.type = payment.type;
+    this.payment_id = payment.payment_id;
+    this.payment_amount = payment.payment_amount;
+    this.membership_type = payment.membership_type;
     this.member_id = payment.member_id;
-    this.lastPaymentDate = payment.lastPaymentDate;
-    this.paymentExpiryDate = payment.paymentExpiryDate;
+    this.last_payment_date = payment.last_payment_date;
+    this.membership_expiry_date = payment.membership_expiry_date;
+    this.created_at = payment.created_at;
+    this.modified_at = payment.modified_at;
 
 };
 
@@ -59,49 +61,82 @@ Payment.getPaymentsById = function (id, result) {
 Payment.getAllPayments = function (result) {
     sql.query("Select * from table_payment", function (err, res) {
 
-            if(err) {
-                console.log("error: ", err);
-                result(null, err);
-            }
-            else{
-              console.log('payments : ', res);  
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else {
+            console.log('payments : ', res);
 
-             result(null, res);
-            }
-        });   
+            result(null, res);
+        }
+    });
 };
 
-Payment.update_payments = function (payments,size,result) {
+Payment.update_payments = function (payments, size, result) {
 
-    var i=0;
+    var i = 0;
 
     payments.forEach(element => {
 
 
-        sql.query("UPDATE table_payment SET ? WHERE id = ? AND member_id = ?", [element,element.id,element.member_id], function (err, res) {
-            
+        sql.query("UPDATE table_payment SET ? WHERE id = ? AND member_id = ?", [element, element.id, element.member_id], function (err, res) {
+
             i++;
 
             if (err) {
                 console.log("error: ", err);
-    
+
             }
             else {
 
                 console.log("updated: ", res);
-                console.log("Lenght ",i)
-                console.log("Payment size ",payments)
+                console.log("Lenght ", i)
+                console.log("Payment size ", payments)
 
 
-                if(i==size){
+                if (i == size) {
                     result(null, res);
                 }
-    
+
             }
         });
     });
 
-    
+
+};
+
+Payment.save_payments = function (payments, size, result) {
+
+    var i = 0;
+
+    payments.forEach(element => {
+
+
+        sql.query("INSERT INTO table_payment set ?", [element], function (err, res) {
+
+            i++;
+
+            if (err) {
+                console.log("error: ", err);
+
+            }
+            else {
+
+                console.log("updated: ", res);
+                console.log("Lenght ", i)
+                console.log("Payment size ", payments)
+
+
+                if (i == size) {
+                    result(null, res);
+                }
+
+            }
+        });
+    });
+
+
 };
 
 

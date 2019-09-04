@@ -3,6 +3,7 @@
 var Address = require('../model/address.js');
 var Payment = require('../model/payment.js');
 var Member=require('../model/member.js');
+var HealthCondition=require('../model/healthcondition.js');
 
 function Response(success, response) {
   this.success = success;
@@ -60,6 +61,16 @@ exports.update_members = function (req, res) {
     res.json([new Response(true, result)]);
   });
 };
+
+exports.save_members = function (req, res) {
+
+  Member.save_members(req.body,req.params.size,function (err, result) {
+    if (err)
+      res.send(err);
+    res.json([new Response(true, result)]);
+  });
+};
+
 
 
 //Payment controllers
@@ -124,6 +135,15 @@ exports.update_payments = function (req, res) {
   });
 };
 
+exports.save_payments = function (req, res) {
+
+  Payment.save_payments(req.body,req.params.size,function (err, result) {
+    if (err)
+      res.send(err);
+    res.json([new Response(true, result)]);
+  });
+};
+
 
 
 
@@ -178,6 +198,24 @@ exports.update_a_address = function (req, res) {
   });
 };
 
+exports.update_addresses = function (req, res) {
+
+  Address.update_addresses(req.body,req.params.size,function (err, result) {
+    if (err)
+      res.send(err);
+    res.json([new Response(true, result)]);
+  });
+};
+
+exports.save_addresses = function (req, res) {
+
+  Address.save_addresses(req.body,req.params.size,function (err, result) {
+    if (err)
+      res.send(err);
+    res.json([new Response(true, result)]);
+  });
+};
+
 exports.delete_a_address = function (req, res) {
 
 
@@ -188,5 +226,64 @@ exports.delete_a_address = function (req, res) {
   });
 };
 
+//Member contorllers
+exports.create_health_condition = function (req, res) {
+  var new_health_condition = new HealthCondition(req.body);
+
+  HealthCondition.createHealthCondition(new_health_condition, function (err, result) {
+
+    if (err)
+      res.send(err);
+    res.json(new Response(true, result));
+  });
+};
+
+exports.getHealthConditionByMemberId = function (req, res) {
+  HealthCondition.getHealthConditionById(req.params.member_id, function (err, result) {
+    console.log('Get health conditions by member id')
+    if (err)
+      res.send(err);
+    console.log('res', result);
+    res.json(new Response(true, result));
+  })
+};
+
+exports.list_all_healthconditions = function (req, res) {
+  HealthCondition.getAllHealthConditions(function (err, address) {
+
+    console.log('controller')
+    if (err)
+      res.send(err);
+    console.log('res', address);
+    res.send(address);
+  });
+};
+
+exports.update_healthcondition = function (req, res) {
+
+  HealthCondition.updateById(req.body,req.params.id,function (err, result) {
+    if (err)
+      res.send(err);
+    res.json([new Response(true, result)]);
+  });
+};
+
+exports.update_healthconditions = function (req, res) {
+
+  HealthCondition.update_haelth_conditions(req.body,req.params.size,function (err, result) {
+    if (err)
+      res.send(err);
+    res.json([new Response(true, result)]);
+  });
+};
+
+exports.save_healthconditions = function (req, res) {
+
+  HealthCondition.save_haelth_conditions(req.body,req.params.size,function (err, result) {
+    if (err)
+      res.send(err);
+    res.json([new Response(true, result)]);
+  });
+};
 
 

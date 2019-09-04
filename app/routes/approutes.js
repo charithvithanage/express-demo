@@ -18,6 +18,9 @@ module.exports = function (app) {
   app.route('/members/updatemembers/:size')
   .put(todoList.update_members);
 
+  app.route('/members/savemembers/:size')
+  .post(todoList.save_members);
+
   // Address Routes
   app.route('/addresses/getalladdresses')
     .get(todoList.list_all_addresses);
@@ -33,6 +36,13 @@ module.exports = function (app) {
 
   app.route('/addresses/removeaddress/:address_id')
     .delete(todoList.delete_a_address);
+
+    app.route('/addresses/updateaddresses/:size')
+    .put(todoList.update_addresses);
+
+
+    app.route('/addresses/saveaddresses/:size')
+    .post(todoList.save_addresses);
 
   //Payment Routes
   app.route('/payments/savepayment')
@@ -50,5 +60,27 @@ module.exports = function (app) {
 
     app.route('/payments/updatepayments/:size')
     .put(todoList.update_payments);
+
+app.route('/payments/savepayments/:size')
+    .post(todoList.save_payments);
+
+    //Health Condition Routes
+  app.route('/healthconditions/savehealthcondition')
+  .post(todoList.create_health_condition);
+
+app.route('/healthconditions/getyhealthconditionbymemberid/:member_id')
+  .get(todoList.getHealthConditionByMemberId);
+
+  app.route('/healthconditions/get_all_healthconditions')
+  .get(todoList.list_all_healthconditions);
+
+  app.route('/healthconditions/updatehealthcondition/:id')
+  .put(todoList.update_healthcondition);
+
+  app.route('/healthconditions/updatehealthconditions/:size')
+  .put(todoList.update_healthconditions);
+
+  app.route('/healthconditions/savehealthconditions/:size')
+  .post(todoList.save_healthconditions);
 
 };
