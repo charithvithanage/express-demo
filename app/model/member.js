@@ -1,7 +1,7 @@
 'use strict';
 var sql = require('./db.js');
 
-var Member = function (member) {
+var Member = function(member) {
 
     this.member_id = member.member_id;
     this.member_membership_no = member.member_membership_no;
@@ -35,11 +35,11 @@ var Member = function (member) {
     this.created_at = member.created_at;
     this.modified_at = member.modified_at;
     this.address_id = member.address_id;
-    this.health_condition_id = this.health_condition_id;
+    this.health_condition_id = member.health_condition_id;
 }
 
-Member.createMember = function (newMember, result) {
-    sql.query("INSERT INTO table_members set ?", newMember, function (err, res) {
+Member.createMember = function(newMember, result) {
+    sql.query("INSERT INTO table_members set ?", newMember, function(err, res) {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -50,13 +50,12 @@ Member.createMember = function (newMember, result) {
     });
 };
 
-Member.updateById = function (member, id, result) {
-    sql.query("UPDATE table_members SET ? WHERE member_id = ?", [member, id], function (err, res) {
+Member.updateById = function(member, id, result) {
+    sql.query("UPDATE table_members SET ? WHERE member_id = ?", [member, id], function(err, res) {
         if (err) {
             console.log("error: ", err);
             result(null, err);
-        }
-        else {
+        } else {
             result(null, res);
         }
     });
@@ -85,14 +84,13 @@ Member.updateById = function (member, id, result) {
 
 
 
-Member.getAllMembers = function (result) {
-    sql.query("Select * from table_members", function (err, res) {
+Member.getAllMembers = function(result) {
+    sql.query("Select * from table_members", function(err, res) {
 
         if (err) {
             console.log("error: ", err);
             result(null, err);
-        }
-        else {
+        } else {
             console.log('members : ', res);
 
             result(null, res);
@@ -100,21 +98,20 @@ Member.getAllMembers = function (result) {
     });
 };
 
-Member.getMemberById = function (id, result) {
-    sql.query("Select * from table_members WHERE member_id = ?", [id], function (err, res) {
+Member.getMemberById = function(id, result) {
+    sql.query("Select * from table_members WHERE member_id = ?", [id], function(err, res) {
 
         if (err) {
             console.log("error: ", err);
             result(null, err);
-        }
-        else {
+        } else {
             console.log('member : ', res);
             result(null, res);
         }
     });
 };
 
-Member.update_members = function (members, size, result) {
+Member.update_members = function(members, size, result) {
 
     let resultMembers = members.map(({ selected, ...rest }) => rest);
 
@@ -123,15 +120,14 @@ Member.update_members = function (members, size, result) {
     resultMembers.forEach(element => {
 
 
-        sql.query("UPDATE table_members SET ? WHERE member_id = ?", [element, element.member_id], function (err, res) {
+        sql.query("UPDATE table_members SET ? WHERE member_id = ?", [element, element.member_id], function(err, res) {
 
             i++;
 
             if (err) {
                 console.log("error: ", err);
 
-            }
-            else {
+            } else {
 
                 console.log("updated: ", res);
 
@@ -146,7 +142,7 @@ Member.update_members = function (members, size, result) {
 
 };
 
-Member.save_members = function (members, size, result) {
+Member.save_members = function(members, size, result) {
 
     let resultMembers = members.map(({ selected, ...rest }) => rest);
 
@@ -155,15 +151,14 @@ Member.save_members = function (members, size, result) {
     resultMembers.forEach(element => {
 
 
-        sql.query("INSERT INTO table_members set ?", [element], function (err, res) {
+        sql.query("INSERT INTO table_members set ?", [element], function(err, res) {
 
             i++;
 
             if (err) {
                 console.log("error: ", err);
 
-            }
-            else {
+            } else {
 
                 console.log("created: ", res);
 

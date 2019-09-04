@@ -1,7 +1,7 @@
 'use strict';
 var sql = require('./db.js');
 
-var HealthCondition = function (healthcondition) {
+var HealthCondition = function(healthcondition) {
 
     this.health_condition_id = healthcondition.health_condition_id;
     this.diabetes = healthcondition.diabetes;
@@ -24,8 +24,10 @@ var HealthCondition = function (healthcondition) {
 
 }
 
-HealthCondition.createHealthCondition = function (newHealthCondition, result) {
-    sql.query("INSERT INTO table_health_condition set ?", newHealthCondition, function (err, res) {
+HealthCondition.createHealthCondition = function(newHealthCondition, result) {
+    sql.query("INSERT INTO table_health_condition set ?", newHealthCondition, function(err, res) {
+
+
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -33,30 +35,30 @@ HealthCondition.createHealthCondition = function (newHealthCondition, result) {
             console.log(res);
             result(null, newHealthCondition);
         }
+
+
     });
 };
 
-HealthCondition.updateById = function (healthcondition, id, result) {
-    sql.query("UPDATE table_health_condition SET ? WHERE id = ?", [healthcondition, id], function (err, res) {
+HealthCondition.updateById = function(healthcondition, id, result) {
+    sql.query("UPDATE table_health_condition SET ? WHERE id = ?", [healthcondition, id], function(err, res) {
         if (err) {
             console.log("error: ", err);
             result(null, err);
-        }
-        else {
+        } else {
             result(null, res);
         }
     });
 };
 
 
-HealthCondition.getAllHealthConditions = function (result) {
-    sql.query("Select * from table_health_condition", function (err, res) {
+HealthCondition.getAllHealthConditions = function(result) {
+    sql.query("Select * from table_health_condition", function(err, res) {
 
         if (err) {
             console.log("error: ", err);
             result(null, err);
-        }
-        else {
+        } else {
             console.log('healthconditions : ', res);
 
             result(null, res);
@@ -64,78 +66,75 @@ HealthCondition.getAllHealthConditions = function (result) {
     });
 };
 
-HealthCondition.getHealthConditionById = function (id, result) {
-    sql.query("Select * from table_health_condition WHERE member_id = ?", [id], function (err, res) {
+HealthCondition.getHealthConditionById = function(id, result) {
+    sql.query("Select * from table_health_condition WHERE member_id = ?", [id], function(err, res) {
 
         if (err) {
             console.log("error: ", err);
             result(null, err);
-        }
-        else {
+        } else {
             console.log('healthcondition : ', res);
             result(null, res);
         }
     });
 };
 
-HealthCondition.update_haelth_conditions = function (healthconditions,size,result) {
+HealthCondition.update_haelth_conditions = function(healthconditions, size, result) {
 
-    var i=0;
+    var i = 0;
 
     healthconditions.forEach(element => {
 
 
-        sql.query("UPDATE table_health_condition SET ? WHERE id = ?", [element,element.id], function (err, res) {
-            
+        sql.query("UPDATE table_health_condition SET ? WHERE id = ?", [element, element.id], function(err, res) {
+
             i++;
 
             if (err) {
                 console.log("error: ", err);
-    
-            }
-            else {
+
+            } else {
 
                 console.log("updated: ", res);
 
-                if(i==size){
+                if (i == size) {
                     result(null, res);
                 }
-    
+
             }
         });
     });
 
-    
+
 };
 
-HealthCondition.save_haelth_conditions = function (healthconditions,size,result) {
+HealthCondition.save_haelth_conditions = function(healthconditions, size, result) {
 
-    var i=0;
+    var i = 0;
 
     healthconditions.forEach(element => {
 
 
-        sql.query("INSERT INTO table_health_condition set ?", [element], function (err, res) {
-            
+        sql.query("INSERT INTO table_health_condition set ?", [element], function(err, res) {
+
             i++;
 
             if (err) {
                 console.log("error: ", err);
-    
-            }
-            else {
+
+            } else {
 
                 console.log("updated: ", res);
 
-                if(i==size){
+                if (i == size) {
                     result(null, res);
                 }
-    
+
             }
         });
     });
 
-    
+
 };
 
 module.exports = HealthCondition;

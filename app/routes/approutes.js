@@ -1,86 +1,89 @@
 'use strict';
-module.exports = function (app) {
-  var todoList = require('../controllers/appController');
+module.exports = function(app) {
+    var addressAppController = require('../controllers/addressAppController');
+    var memberAppController = require('../controllers/memberAppController');
+    var healthConditionAppController = require('../controllers/healthConditionAppController');
+    var paymentAppController = require('../controllers/paymentAppController');
 
-  //Member Routes
-  app.route('/members/savemember')
-    .post(todoList.create_a_member);
 
-  app.route('/members/updatemember/:member_id')
-  .put(todoList.update_a_member);  
+    //Member Routes
+    app.route('/members/savemember')
+        .post(memberAppController.create_a_member);
 
-  app.route('/members/getmember/:member_id')
-  .get(todoList.get_member_by_id);
+    app.route('/members/updatemember/:member_id')
+        .put(memberAppController.update_a_member);
 
-  app.route('/members/getallmembers')
-  .get(todoList.list_all_members);
+    app.route('/members/getmember/:member_id')
+        .get(memberAppController.get_member_by_id);
 
-  app.route('/members/updatemembers/:size')
-  .put(todoList.update_members);
+    app.route('/members/getallmembers')
+        .get(memberAppController.list_all_members);
 
-  app.route('/members/savemembers/:size')
-  .post(todoList.save_members);
+    app.route('/members/updatemembers/:size')
+        .put(memberAppController.update_members);
 
-  // Address Routes
-  app.route('/addresses/getalladdresses')
-    .get(todoList.list_all_addresses);
+    app.route('/members/savemembers/:size')
+        .post(memberAppController.save_members);
 
-  app.route('/addresses/saveaddress')
-    .post(todoList.create_a_address);
+    // Address Routes
+    app.route('/addresses/getalladdresses')
+        .get(addressAppController.list_all_addresses);
 
-  app.route('/addresses/getaddress/:address_id')
-    .get(todoList.read_a_address);
+    app.route('/addresses/saveaddress')
+        .post(addressAppController.create_a_address);
 
-  app.route('/addresses/updateaddress/:address_id')
-    .put(todoList.update_a_address);
+    app.route('/addresses/getaddress/:address_id')
+        .get(addressAppController.read_a_address);
 
-  app.route('/addresses/removeaddress/:address_id')
-    .delete(todoList.delete_a_address);
+    app.route('/addresses/updateaddress/:address_id')
+        .put(addressAppController.update_a_address);
+
+    app.route('/addresses/removeaddress/:address_id')
+        .delete(addressAppController.delete_a_address);
 
     app.route('/addresses/updateaddresses/:size')
-    .put(todoList.update_addresses);
-
+        .put(addressAppController.update_addresses);
 
     app.route('/addresses/saveaddresses/:size')
-    .post(todoList.save_addresses);
+        .post(addressAppController.save_addresses);
 
-  //Payment Routes
-  app.route('/payments/savepayment')
-    .post(todoList.createPayment);
+    //Payment Routes
+    app.route('/payments/savepayment')
+        .post(paymentAppController.createPayment);
 
-  app.route('/payments/getpayment/:id')
-    .get(todoList.getPaymentsById);
+    app.route('/payments/getpayment/:id')
+        .get(paymentAppController.getPaymentsById);
 
 
-  app.route('/payments/getpaymentbymemberid/:member_id')
-    .get(todoList.getPaymentsByMemberId);
+    app.route('/payments/getpaymentbymemberid/:member_id')
+        .get(paymentAppController.getPaymentsByMemberId);
 
     app.route('/payments/getallpayments')
-    .get(todoList.list_all_payments);
+        .get(paymentAppController.list_all_payments);
 
     app.route('/payments/updatepayments/:size')
-    .put(todoList.update_payments);
+        .put(paymentAppController.update_payments);
 
-app.route('/payments/savepayments/:size')
-    .post(todoList.save_payments);
+    app.route('/payments/savepayments/:size')
+        .post(paymentAppController.save_payments);
 
     //Health Condition Routes
-  app.route('/healthconditions/savehealthcondition')
-  .post(todoList.create_health_condition);
+    app.route('/healthconditions/savehealthcondition')
+        .post(healthConditionAppController.create_health_condition);
 
-app.route('/healthconditions/getyhealthconditionbymemberid/:member_id')
-  .get(todoList.getHealthConditionByMemberId);
+    app.route('/healthconditions/getyhealthconditionbymemberid/:member_id')
+        .get(healthConditionAppController.getHealthConditionByMemberId);
 
-  app.route('/healthconditions/get_all_healthconditions')
-  .get(todoList.list_all_healthconditions);
+    app.route('/healthconditions/get_all_healthconditions')
+        .get(healthConditionAppController.list_all_healthconditions);
 
-  app.route('/healthconditions/updatehealthcondition/:id')
-  .put(todoList.update_healthcondition);
+    app.route('/healthconditions/updatehealthcondition/:id')
+        .put(healthConditionAppController.update_healthcondition);
 
-  app.route('/healthconditions/updatehealthconditions/:size')
-  .put(todoList.update_healthconditions);
+    app.route('/healthconditions/updatehealthconditions/:size')
+        .put(healthConditionAppController.update_healthconditions);
 
-  app.route('/healthconditions/savehealthconditions/:size')
-  .post(todoList.save_healthconditions);
+    app.route('/healthconditions/savehealthconditions/:size')
+        .post(healthConditionAppController.save_healthconditions);
 
 };
