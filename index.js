@@ -7,7 +7,7 @@ const mysql = require('mysql');
 
 // connection configurations
 const mc = mysql.createConnection({
-    host: 'localhost',
+    host: 'ec2-13-127-71-13.ap-south-1.compute.amazonaws.com',
     user: 'root',
     password: '',
     database: 'tri_fitness_db',
